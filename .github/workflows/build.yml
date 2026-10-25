@@ -1,0 +1,36 @@
+
+name: NFOForge - Build et tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Build Windows x64 et regression
+    runs-on: windows-2022
+    timeout-minutes: 20
+
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v4
+
+      - name: Installer .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restaurer les projets
+        run: dotnet restore NFOForge.slnx -p:Platform=x64
+
+      - name: Compiler Release x64
+        run: dotnet build NFOForge.slnx -c Release -p:Platform=x64 --no-restore -warnaserror:MSB3270
+
+      - name: Executer les tests
+        run: dotnet run --project src/NFOForge.RegressionTests/NFOForge.RegressionTests.csproj -c Release -p:Platform=x64 --no-build
