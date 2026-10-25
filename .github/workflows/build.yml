@@ -21,10 +21,18 @@ jobs:
       - name: Recuperer le depot
         uses: actions/checkout@v6
 
-      - name: Installer .NET 10
-        uses: actions/setup-dotnet@v5
+            - name: Installer .NET 10
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
+          architecture: x64
+          check-latest: false
+          skip-lts-prepass: true
+
+      - name: Verifier le SDK .NET
+        run: |
+          dotnet --info
+          dotnet --list-sdks
 
       - name: Restaurer les projets
         run: dotnet restore NFOForge.slnx -p:Platform=x64
