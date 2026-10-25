@@ -33,4 +33,5 @@ jobs:
         run: dotnet build NFOForge.slnx -c Release -p:Platform=x64 --no-restore -warnaserror:MSB3270
 
       - name: Executer les tests
-        run: dotnet run --project src/NFOForge.RegressionTests/NFOForge.RegressionTests.csproj -c Release -p:Platform=x64 --no-build
+        run: dotnet run --project src/NFOForge.RegressionTests/NFOForge.RegressionTests.csproj -c Release -p:Platform=x64
+
