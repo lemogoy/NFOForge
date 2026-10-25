@@ -1,0 +1,12 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="../NFOForge.App/NFOForge.App.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="NFOForge.Compliance.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>

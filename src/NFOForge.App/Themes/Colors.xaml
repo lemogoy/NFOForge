@@ -1,0 +1,33 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Arrière-plans -->
+    <SolidColorBrush x:Key="BackgroundBrush"
+                     Color="#090E1A"/>
+
+    <SolidColorBrush x:Key="SidebarBrush"
+                     Color="#101827"/>
+
+    <SolidColorBrush x:Key="CardBrush"
+                     Color="#172235"/>
+
+    <!-- Identité bleu électrique -->
+    <SolidColorBrush x:Key="PrimaryBrush"
+                     Color="#007BFF"/>
+
+    <SolidColorBrush x:Key="AccentBrush"
+                     Color="#00C8FF"/>
+
+    <!-- Textes -->
+    <SolidColorBrush x:Key="TextPrimaryBrush"
+                     Color="#FFFFFF"/>
+
+    <SolidColorBrush x:Key="TextSecondaryBrush"
+                     Color="#94A3B8"/>
+
+    <!-- Bordures -->
+    <SolidColorBrush x:Key="BorderBrush"
+                     Color="#26374F"/>
+
+</ResourceDictionary>

@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../src/NFOForge.Compliance/NFOForge.Compliance.csproj" /></ItemGroup>
+  <ItemGroup><None Include="../../rules/c411-applications-v1.json" CopyToOutputDirectory="PreserveNewest" Link="rules/c411-applications-v1.json" /></ItemGroup>
+</Project>
