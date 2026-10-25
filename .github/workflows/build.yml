@@ -16,32 +16,72 @@ permissions:
 
 jobs:
   build-and-test:
+
     name: Build Windows x64 et regression
-    runs-on: windows-2022
+
+    runs-on: windows-2025
+
     timeout-minutes: 20
 
+    defaults:
+      run:
+        shell: pwsh
+
     steps:
+
+      # ==========================================
+      # RECUPERATION DU CODE SOURCE
+      # ==========================================
+
       - name: Recuperer le depot
         uses: actions/checkout@v6
 
-      - name: Installer .NET 10
-        uses: actions/setup-dotnet@v6
-        with:
-          dotnet-version: '10.0.x'
-          architecture: x64
-          check-latest: false
-          skip-lts-prepass: true
+      # ==========================================
+      # VERIFICATION DU SDK .NET 10
+      # ==========================================
 
-      - name: Verifier le SDK .NET
+      - name: Verifier le SDK .NET 10
         run: |
+          Write-Host "Verification de l'environnement .NET"
+
           dotnet --info
           dotnet --list-sdks
 
+          $sdks = dotnet --list-sdks
+
+          if (-not ($sdks | Where-Object { $_ -match '^\s*10\.' })) {
+              throw "SDK .NET 10 introuvable sur le runner Windows."
+          }
+
+          Write-Host "SDK .NET 10 detecte."
+
+      # ==========================================
+      # RESTAURATION DES DEPENDANCES
+      # ==========================================
+
       - name: Restaurer les projets
-        run: dotnet restore NFOForge.slnx -p:Platform=x64
+        run: |
+          dotnet restore NFOForge.slnx -p:Platform=x64
+
+      # ==========================================
+      # COMPILATION RELEASE X64
+      # ==========================================
 
       - name: Compiler Release x64
-        run: dotnet build NFOForge.slnx -c Release -p:Platform=x64 --no-restore -warnaserror:MSB3270
+        run: |
+          dotnet build NFOForge.slnx `
+            -c Release `
+            -p:Platform=x64 `
+            --no-restore `
+            -warnaserror:MSB3270
+
+      # ==========================================
+      # TESTS DE REGRESSION
+      # ==========================================
 
       - name: Executer les tests
-        run: dotnet run --project src/NFOForge.RegressionTests/NFOForge.RegressionTests.csproj -c Release -p:Platform=x64
+        run: |
+          dotnet run `
+            --project src/NFOForge.RegressionTests/NFOForge.RegressionTests.csproj `
+            -c Release `
+            -p:Platform=x64
