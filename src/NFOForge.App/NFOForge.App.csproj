@@ -1,33 +1,76 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <Platforms>AnyCPU;x64</Platforms>
-  </PropertyGroup>
+	<!-- Configuration générale -->
+	<PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\logo.WebP" />
-    <None Remove="Rules\c411-applications-v1.json" />
-  </ItemGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
 
-  <ItemGroup>
-    <Content Include="Rules\c411-applications-v1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NFOForge.Compliance\NFOForge.Compliance.csproj" />
-  </ItemGroup>
+		<UseWPF>true</UseWPF>
 
-  <ItemGroup>
-    <Resource Include="Resources\logo.WebP">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+		<Platforms>AnyCPU;x64</Platforms>
+
+		<!-- Identité Windows -->
+		<AssemblyTitle>NFOForge - Éditeur NFO et BBCode</AssemblyTitle>
+		<Product>NFOForge</Product>
+		<Company>Guidessence</Company>
+
+		<Description>
+			Éditeur professionnel de fiches NFO et BBCode
+		</Description>
+
+		<Copyright>Copyright © 2026 Guidessence</Copyright>
+
+		<!-- Gestion des versions -->
+		<Version>1.0.1</Version>
+		<AssemblyVersion>1.0.1.0</AssemblyVersion>
+		<FileVersion>1.0.1.0</FileVersion>
+		<InformationalVersion>1.0.1</InformationalVersion>
+
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+
+		<!-- Icône officielle -->
+		<ApplicationIcon>Resources\NFOForge.ico</ApplicationIcon>
+
+	</PropertyGroup>
+
+	<!-- Exclusion des inclusions automatiques -->
+	<ItemGroup>
+
+		<None Remove="Resources\logo.WebP" />
+		<None Remove="Resources\NFOForge.ico" />
+		<None Remove="Rules\c411-applications-v1.json" />
+
+	</ItemGroup>
+
+	<!-- Règles de conformité -->
+	<ItemGroup>
+
+		<Content Include="Rules\c411-applications-v1.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+
+	</ItemGroup>
+
+	<!-- Référence au moteur de conformité -->
+	<ItemGroup>
+
+		<ProjectReference Include="..\NFOForge.Compliance\NFOForge.Compliance.csproj" />
+
+	</ItemGroup>
+
+	<!-- Ressources graphiques -->
+	<ItemGroup>
+
+		<Resource Include="Resources\logo.WebP">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\NFOForge.ico" />
+
+	</ItemGroup>
 
 </Project>

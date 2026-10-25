@@ -209,7 +209,14 @@ namespace NFOForge.App.ViewModels
                     Filter = "Projet NFOForge (*.nfoproject)|*.nfoproject",
                     DefaultExt = ".nfoproject",
                     AddExtension = true,
-                    FileName = _projectPath is null ? "MonProjet.nfoproject" : Path.GetFileName(_projectPath),
+
+                    InitialDirectory = Environment.GetFolderPath(
+        Environment.SpecialFolder.MyDocuments),
+
+                    FileName = _projectPath is null
+        ? "MonProjet.nfoproject"
+        : Path.GetFileName(_projectPath),
+
                     OverwritePrompt = true
                 };
                 if (dialog.ShowDialog() != true) return false;
