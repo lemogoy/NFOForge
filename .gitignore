@@ -430,3 +430,6 @@ FodyWeavers.xsd
 # NFOForge - Archives de sauvegarde
 /src/NFOForge.zip
 /src/NFOForge-etape-24.4-correctif.zip
+
+# NFOForge - Packages de distribution
+/dist/
