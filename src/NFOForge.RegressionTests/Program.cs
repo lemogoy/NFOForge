@@ -45,7 +45,14 @@ internal static class Program
     }
 
     private static void Run(string root)
+
+
     {
+        // Régression du gestionnaire de mises à jour.
+        UpdateServiceTests.Run(Check);
+        UpdatePreferencesTests.Run(Check, root);
+        UpdateNotificationTests.Run(Check);
+
         var metadata = new SoftwareMetadata { Name = "Test", Version = "1.0" };
         string? folder = null;
         int dialogs = 0;

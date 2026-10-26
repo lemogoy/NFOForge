@@ -1,13 +1,13 @@
 ; ============================================================
 ; NFOForge - Installateur Windows
-; Version : 1.0.1
+; Version : 1.0.2
 ; Editeur : Guidessence
 ; Framework : .NET 10 / WPF
 ; Architecture : Windows x64
 ; ============================================================
 
 #define MyAppName "NFOForge"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.0.2"
 #define MyAppPublisher "Guidessence"
 #define MyAppExeName "NFOForge.App.exe"
 
@@ -31,7 +31,7 @@ AppComments=Editeur professionnel de fiches NFO et BBCode
 ; METADONNEES WINDOWS DE L'INSTALLATEUR
 ; ============================================================
 
-VersionInfoVersion=1.0.1.0
+VersionInfoVersion=1.0.2.0
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoDescription=NFOForge - Programme d'installation
 VersionInfoProductName={#MyAppName}
@@ -79,7 +79,7 @@ RestartApplications=no
 
 OutputDir=..\dist\installer
 
-OutputBaseFilename=NFOForge-Setup-1.0.1-win-x64
+OutputBaseFilename=NFOForge-Setup-1.0.2-win-x64
 
 Compression=lzma2
 SolidCompression=yes
@@ -100,10 +100,10 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "Créer un raccourci sur le Bureau"; GroupDescription: "Raccourcis :"; Flags: unchecked
 
 [Files]
-; Application NFOForge 1.0.1 et dependances Windows.
+; Application NFOForge 1.0.2 et dependances Windows.
 ; Exclusion des symboles de debogage.
 
-Source: "..\dist\NFOForge-1.0.1-win-x64\*"; DestDir: "{app}"; Excludes: "*.pdb"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\dist\NFOForge-1.0.2-win-x64\*"; DestDir: "{app}"; Excludes: "*.pdb"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 
