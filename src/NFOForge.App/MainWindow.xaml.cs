@@ -62,9 +62,11 @@ namespace NFOForge.App
 
 
 
+
             Uri manifestUri = new(
                 "https://guidessence.fr/uploads/program/nfoforge/update/stable.json",
                 UriKind.Absolute);
+
 
 
             if (!Version.TryParse(
