@@ -185,7 +185,6 @@ namespace NFOForge.App.Services
                     return Unavailable();
                 }
 
-                
                 var update = new UpdateInfo(
                     latestVersion,
                     downloadUri,
