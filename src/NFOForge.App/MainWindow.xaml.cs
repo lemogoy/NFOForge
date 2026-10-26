@@ -1,12 +1,13 @@
-﻿using System;
+﻿using NFOForge.App.Services;
+using NFOForge.App.ViewModels;
+using NFOForge.App.Views;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Windows;
 
-using NFOForge.App.Services;
-using NFOForge.App.ViewModels;
 
 namespace NFOForge.App
 {
@@ -26,11 +27,14 @@ namespace NFOForge.App
         private bool _isClosing;
 
         public MainWindow()
+
         {
             InitializeComponent();
 
             DataContext = new MainViewModel();
         }
+
+        
 
         /// <summary>
         /// Déclenche la vérification des mises à jour
@@ -84,14 +88,19 @@ namespace NFOForge.App
                 if (_isClosing)
                     return;
 
-                if (result.Status !=
-                    UpdateCheckStatus.UpdateAvailable)
-                    return;
 
-                if (result.Update is null)
+                // Ne notifier qu'une mise à jour complète,
+                // lorsque le contrôle automatique est autorisé.
+                if (!UpdateNotificationPolicy.ShouldNotify(
+                        result,
+                        checkOnStartup: true,
+                        isClosing: _isClosing))
+                {
                     return;
+                }
 
-                ShowUpdateNotification(result.Update);
+                ShowUpdateNotification(result.Update!);
+
             }
             catch (OperationCanceledException)
                 when (_updateCancellation.IsCancellationRequested)
@@ -114,43 +123,18 @@ namespace NFOForge.App
         ///
         /// Aucun installateur n'est exécuté.
         /// </summary>
+
         private void ShowUpdateNotification(UpdateInfo update)
         {
-            string message =
-                "Une nouvelle version de NFOForge est disponible.\n\n" +
-                $"Version installée : {AppVersionInfo.Version}\n" +
-                $"Nouvelle version : {update.Version.ToString(3)}\n\n" +
-                "Souhaitez-vous consulter sa page de publication ?";
-
-            MessageBoxResult choice = MessageBox.Show(
-                this,
-                message,
-                "NFOForge — Mise à jour disponible",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Information,
-                MessageBoxResult.Yes);
-
-            if (choice != MessageBoxResult.Yes)
+            if (_isClosing)
                 return;
 
-            try
+            var dialog = new UpdateNotificationWindow(update)
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = update.ReleaseNotesUrl.AbsoluteUri,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    this,
-                    "Impossible d'ouvrir la page de publication.\n\n" +
-                    ex.Message,
-                    "NFOForge",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-            }
+                Owner = this
+            };
+
+            dialog.ShowDialog();
         }
 
         /// <summary>

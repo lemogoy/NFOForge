@@ -1,0 +1,105 @@
+﻿<Window x:Class="NFOForge.App.Views.UpdateNotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NFOForge — Mise à jour disponible"
+        Width="520"
+        Height="360"
+        MinWidth="480"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#0B1220"
+        Foreground="White"
+        ShowInTaskbar="False">
+
+    <Border Margin="12"
+            Padding="24"
+            Background="#172338"
+            BorderBrush="#30415D"
+            BorderThickness="1"
+            CornerRadius="12">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Text="MISE À JOUR DISPONIBLE"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="#00BFFF"
+                       Margin="0,0,0,16"/>
+
+            <TextBlock Grid.Row="1"
+                       Text="Une nouvelle version de NFOForge est disponible."
+                       FontSize="13"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,20"/>
+
+            <Grid Grid.Row="2"
+                  Margin="0,0,0,20">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Version installée"
+                               Foreground="#9DB1CF"/>
+
+                    <TextBlock Text="{Binding InstalledVersion}"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Nouvelle version"
+                               Foreground="#9DB1CF"/>
+
+                    <TextBlock Text="{Binding AvailableVersion}"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Foreground="#00BFFF"
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="3">
+
+                <TextBlock
+                    Text="Aucune installation ne sera exécutée automatiquement."
+                    Foreground="#9DB1CF"
+                    FontSize="12"
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,18"/>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+
+                    <Button Content="Plus tard"
+                            Width="115"
+                            Height="38"
+                            Margin="0,0,12,0"
+                            Click="Later_Click"
+                            Background="#263752"
+                            Foreground="White"
+                            BorderThickness="0"/>
+
+                    <Button Content="Consulter la version"
+                            Width="170"
+                            Height="38"
+                            Click="ViewRelease_Click"
+                            Background="#007BFF"
+                            Foreground="White"
+                            BorderThickness="0"/>
+
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
