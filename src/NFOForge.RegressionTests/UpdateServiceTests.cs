@@ -135,6 +135,42 @@ internal static class UpdateServiceTests
             check(result.Status == UpdateCheckStatus.Unavailable,
                 "Erreur réseau non gérée.");
         }
+
+        // 11. Manifeste d'amorçage sans téléchargement.
+        const string bootstrapManifest = """
+        {
+            "version": "1.0.1",
+            "status": "stable",
+            "downloadUrl": null,
+            "releaseNotesUrl": null,
+            "sha256": null
+        }
+        """;
+
+        result = Execute(bootstrapManifest);
+
+        check(
+            result.Status == UpdateCheckStatus.UpToDate,
+            "Manifeste d'amorçage refusé pour une version identique.");
+
+        // 12. Nouvelle version sans package :
+        // ne jamais proposer de mise à jour incomplète.
+        const string incompleteManifest = """
+        {
+            "version": "1.0.2",
+            "status": "stable",
+            "downloadUrl": null,
+            "releaseNotesUrl": null,
+            "sha256": null
+        }
+        """;
+
+        result = Execute(incompleteManifest);
+
+        check(
+            result.Status == UpdateCheckStatus.Unavailable,
+            "Nouvelle version sans package incorrectement acceptée.");
+
     }
 
     private sealed class FakeHttpHandler : HttpMessageHandler

@@ -49,22 +49,19 @@ namespace NFOForge.App
 
             _updateCheckStarted = true;
 
-            string? manifestUrl =
-                Environment.GetEnvironmentVariable(
-                    "NFOFORGE_UPDATE_MANIFEST_URL");
 
-            // Aucun serveur configuré : fonctionnement hors ligne.
-            if (string.IsNullOrWhiteSpace(manifestUrl))
+            // Respecter le choix enregistré par l'utilisateur.
+            var preferencesService = new UpdatePreferencesService();
+
+            if (!preferencesService.Load().CheckOnStartup)
                 return;
 
-            if (!Uri.TryCreate(
-                    manifestUrl,
-                    UriKind.Absolute,
-                    out Uri? manifestUri))
-                return;
 
-            if (manifestUri.Scheme != Uri.UriSchemeHttps)
-                return;
+
+            Uri manifestUri = new(
+                "https://guidessence.fr/uploads/program/nfoforge/update/stable.json",
+                UriKind.Absolute);
+
 
             if (!Version.TryParse(
                     AppVersionInfo.Version,

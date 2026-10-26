@@ -141,6 +141,19 @@ namespace NFOForge.App.Services
                     return Unavailable();
                 }
 
+
+                // Comparer les versions avant de demander les
+                // informations nécessaires au téléchargement.
+                //
+                // Un manifeste d'amorçage peut déclarer la version
+                // actuelle sans proposer de package d'installation.
+                if (latestVersion <= Normalize(installedVersion))
+                {
+                    return new UpdateCheckResult(
+                        UpdateCheckStatus.UpToDate);
+                }
+
+
                 if (!Uri.TryCreate(
                     manifest.DownloadUrl,
                     UriKind.Absolute,
@@ -172,12 +185,7 @@ namespace NFOForge.App.Services
                     return Unavailable();
                 }
 
-                if (latestVersion <= Normalize(installedVersion))
-                {
-                    return new UpdateCheckResult(
-                        UpdateCheckStatus.UpToDate);
-                }
-
+                
                 var update = new UpdateInfo(
                     latestVersion,
                     downloadUri,
@@ -265,5 +273,6 @@ namespace NFOForge.App.Services
 
             public string? Sha256 { get; set; }
         }
+
     }
 }

@@ -50,6 +50,7 @@ internal static class Program
     {
         // Régression du gestionnaire de mises à jour.
         UpdateServiceTests.Run(Check);
+        UpdatePreferencesTests.Run(Check, root);
 
         var metadata = new SoftwareMetadata { Name = "Test", Version = "1.0" };
         string? folder = null;
